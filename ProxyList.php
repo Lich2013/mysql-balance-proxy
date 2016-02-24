@@ -59,6 +59,11 @@ class ProxyList {
         $server = new PDO('mysql:host=127.0.0.1;port=3306;dbname=mytest;charset=UTF8;', 'root', '', array(PDO::ATTR_PERSISTENT=>true));
         $server->prepare("UPDATE list set type = 'OL' WHERE host = '$ip' AND port = '$port'");
         $server->exec();
+        $this->redis->delete('OL', 'RO', 'RW');
+        $OL = '';
+        $RO = '';
+        $RW = '';
+        $this->redis->set();
         //todo 从redis里改变状态
     }
 }
